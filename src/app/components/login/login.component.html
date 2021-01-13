@@ -1,0 +1,53 @@
+<div class="container">
+  <form [formGroup]="form">
+    <mat-card class="card">
+      <mat-form-field appearance="fill">
+        <mat-label>Username</mat-label>
+        <input matInput placeholder="patman" formControlName="username" />
+        <mat-error *ngIf="f.username.errors?.required">
+          Username is required
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Password</mat-label>
+        <input
+          matInput
+          [type]="hide ? 'password' : 'text'"
+          formControlName="password"
+        />
+        <button
+          mat-icon-button
+          matSuffix
+          (click)="hide = !hide"
+          [attr.aria-label]="'Hide password'"
+          [attr.aria-pressed]="hide"
+        >
+          <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
+        </button>
+        <mat-error *ngIf="f.password.errors?.required">
+          Password is required
+        </mat-error>
+      </mat-form-field>
+
+      <button
+        mat-flat-button
+        color="accent"
+        [disabled]="form.invalid"
+        (click)="login()"
+      >
+        Login
+      </button>
+
+      <button
+        type="button"
+        mat-flat-button
+        color="primary"
+        (click)="signInWithGoogle()"
+      >
+        Google login
+        <span class="fab fa-google"></span>
+      </button>
+    </mat-card>
+  </form>
+</div>

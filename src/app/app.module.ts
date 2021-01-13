@@ -8,6 +8,15 @@ import { ReservationComponent } from './components/reservation/reservation.compo
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 
+import {
+  SocialLoginModule,
+  SocialAuthServiceConfig,
+} from 'angularx-social-login';
+import {
+  GoogleLoginProvider,
+  FacebookLoginProvider,
+} from 'angularx-social-login';
+
 import { MaterialModule } from './material.module';
 
 import {
@@ -24,8 +33,15 @@ import {
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ConfirmationComponent } from './components/confirmation/confirmation.component';
+import { LoginComponent } from './components/login/login.component';
 @NgModule({
-  declarations: [AppComponent, NewReservationComponent, ReservationComponent, ConfirmationComponent],
+  declarations: [
+    AppComponent,
+    NewReservationComponent,
+    ReservationComponent,
+    ConfirmationComponent,
+    LoginComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -35,6 +51,7 @@ import { ConfirmationComponent } from './components/confirmation/confirmation.co
     MaterialModule,
     HttpClientModule,
     FontAwesomeModule,
+    SocialLoginModule,
   ],
   providers: [
     { provide: MAT_DATE_LOCALE, useValue: 'en-SG' },
@@ -44,6 +61,25 @@ import { ConfirmationComponent } from './components/confirmation/confirmation.co
       deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS],
     },
     { provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS },
+    {
+      provide: 'SocialAuthServiceConfig',
+      useValue: {
+        autoLogin: false,
+        providers: [
+          {
+            id: GoogleLoginProvider.PROVIDER_ID,
+            provider: new GoogleLoginProvider(
+              // '624796833023-clhjgupm0pu6vgga7k5i5bsfp6qp6egh.apps.googleusercontent.com'
+              '1094217161012-kg2f0kd85mkbqql2htd3ilni02evmvh7.apps.googleusercontent.com'
+            ),
+          },
+          // {
+          //   id: FacebookLoginProvider.PROVIDER_ID,
+          //   provider: new FacebookLoginProvider('clientId')
+          // }
+        ],
+      } as SocialAuthServiceConfig,
+    },
   ],
   bootstrap: [AppComponent],
 })

@@ -28,3 +28,13 @@ export interface Reservation {
 export interface CustomerId {
   customerId: string;
 }
+
+export interface Credentials {
+  username: string;
+  password: string;
+}
+
+export interface AuthToken {
+  message: string;
+  token: string;
+}
