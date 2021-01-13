@@ -23,6 +23,7 @@ const MATERIAL = [
   MatToolbarModule,
   MatDividerModule,
   MatSelectModule,
+  // MatIconModule,
 ];
 
 @NgModule({

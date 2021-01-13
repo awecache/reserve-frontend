@@ -1,0 +1,22 @@
+<div>Pax: {{ pax }}</div>
+<div>Date: {{ date }}</div>
+<div>Time: {{ time }}</div>
+
+<form [formGroup]="form" (ngSubmit)="confirm()">
+  <mat-form-field>
+    <mat-label>Name</mat-label>
+    <input matInput placeholder="John" formControlName="name" />
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Contact</mat-label>
+    <input matInput placeholder="96667777" formControlName="contact" />
+  </mat-form-field>
+  <button
+    mat-raised-button
+    color="primary"
+    type="submit"
+    [disabled]="this.form.invalid"
+  >
+    Confirm
+  </button>
+</form>

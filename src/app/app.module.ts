@@ -22,8 +22,10 @@ import {
   MAT_DATE_LOCALE,
 } from '@angular/material/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { ConfirmationComponent } from './components/confirmation/confirmation.component';
 @NgModule({
-  declarations: [AppComponent, NewReservationComponent, ReservationComponent],
+  declarations: [AppComponent, NewReservationComponent, ReservationComponent, ConfirmationComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -32,6 +34,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     ReactiveFormsModule,
     MaterialModule,
     HttpClientModule,
+    FontAwesomeModule,
   ],
   providers: [
     { provide: MAT_DATE_LOCALE, useValue: 'en-SG' },
