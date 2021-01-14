@@ -50,7 +50,7 @@ export class LoginComponent implements OnInit {
       GoogleLoginProvider.PROVIDER_ID
     );
 
-    this.authService.socialLogin(user.email);
+    await this.authService.socialLogin(user.email);
 
     this.form.reset();
     this.router.navigate(['manager/dashboard']);

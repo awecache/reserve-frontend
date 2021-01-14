@@ -1,0 +1,30 @@
+.button {
+  width: 15rem;
+  height: 4rem;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  height: 50%;
+  justify-content: space-around;
+  align-items: center;
+}
+
+p {
+  width: 70%;
+  margin-bottom: 0;
+}
+
+.search-button {
+  margin-left: 2rem;
+}
+
+.cancellation {
+  padding-left: 12%;
+}
+
+h1 {
+  text-align: center;
+  padding-bottom: 5%;
+}

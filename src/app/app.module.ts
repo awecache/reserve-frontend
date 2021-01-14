@@ -37,7 +37,7 @@ import { ConfirmationComponent } from './components/confirmation/confirmation.co
 import { LoginComponent } from './components/login/login.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { SuccessComponent } from './components/success/success.component';
-import { ChangeReservationComponent } from './components/change-reservation/change-reservation.component';
+import { MainComponent } from './components/main/main.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -47,7 +47,7 @@ import { ChangeReservationComponent } from './components/change-reservation/chan
     LoginComponent,
     DashboardComponent,
     SuccessComponent,
-    ChangeReservationComponent,
+    MainComponent,
   ],
   imports: [
     BrowserModule,

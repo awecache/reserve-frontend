@@ -27,10 +27,6 @@ export class ConfirmationComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    console.log('reserved date', this.reservationSvr.reservedDate);
-    console.log('reserved time', this.reservationSvr.reservedTime);
-    console.log('reserved pax', this.reservationSvr.reservedPax);
-    console.log('tables', this.reservationSvr.tables);
     this.pax = this.reservationSvr.reservedPax;
     this.date = this.reservationSvr.reservedDate;
     this.time = this.reservationSvr.reservedTime;

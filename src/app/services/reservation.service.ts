@@ -75,6 +75,14 @@ export class ReservationService {
     return this.http.get<ReservationView[]>('/api/reservations', { params });
   }
 
+  getReservationByBookRef(ref: string) {
+    const params = new HttpParams().set('book_ref', ref);
+
+    return this.http.get<ReservationView[]>('/api/reservations', {
+      params,
+    });
+  }
+
   saveReservation(
     customerId: string,
     timestamp: number,
@@ -97,8 +105,11 @@ export class ReservationService {
     );
   }
 
+  deleteReservation(ref: string) {
+    return this.http.delete(`/api/reservation/${ref}`);
+  }
+
   sendConfirmation(reservationDetails: ReservationConfirmation) {
-    console.log('sending mail', reservationDetails);
     return this.http.post('/api/send', reservationDetails).toPromise();
   }
 
@@ -116,8 +127,6 @@ export class ReservationService {
     contact: string,
     email: string
   ): Observable<CustomerId> {
-    console.log('nam', name);
-    console.log('contact', contact);
     return this.http.post<CustomerId>('/api/customer', {
       name,
       contact,

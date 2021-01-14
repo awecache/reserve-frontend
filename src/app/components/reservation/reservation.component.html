@@ -1,1 +1,17 @@
-<p>reservation works!</p>
+<ng-container *ngIf="reservation">
+  <h2>Reservation Cancellation</h2>
+  <mat-list role="list">
+    <mat-list-item role="listitem"
+      >Date : {{ reservation?.date }}</mat-list-item
+    >
+    <mat-list-item role="listitem">Time: {{ reservation?.time }}</mat-list-item>
+    <mat-list-item role="listitem">Pax: {{ reservation?.pax }}</mat-list-item>
+  </mat-list>
+  <p>Press confirm to Cancel your reservation.</p>
+  <div>
+    <button mat-raised-button color="warn" (click)="cancelReservation()">
+      Confirm
+    </button>
+    <button mat-raised-button color="basic" (click)="goBack()">Back</button>
+  </div>
+</ng-container>

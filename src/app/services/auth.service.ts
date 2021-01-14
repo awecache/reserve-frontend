@@ -1,6 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, Subscription } from 'rxjs';
+import {
+  ActivatedRouteSnapshot,
+  Router,
+  RouterStateSnapshot,
+} from '@angular/router';
 import { AuthToken, Credentials } from '../models';
 
 @Injectable({
@@ -9,17 +13,14 @@ import { AuthToken, Credentials } from '../models';
 export class AuthService {
   private _token: string = '';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
   async login(cred: Credentials): Promise<void> {
-    console.log('credentials:', cred);
     try {
       const res = await this.http
         .post<AuthToken>('/auth/login', cred)
         .toPromise();
 
-      console.log('login successful: ', res.message);
-      console.log('token from authsrv:', res.token);
       this._token = res.token;
     } catch (error) {
       if (error.status == 401) {
@@ -30,13 +31,10 @@ export class AuthService {
   }
 
   async socialLogin(email: string): Promise<void> {
-    console.log('email: ', email);
     try {
       const res = await this.http
         .post<AuthToken>('/auth/login/social', { email })
         .toPromise();
-
-      console.log('social login successful: ', res.message);
 
       this._token = res.token;
     } catch (error) {
@@ -55,5 +53,15 @@ export class AuthService {
 
   get token(): string {
     return this._token;
+  }
+
+  logout() {
+    this._token = '';
+    this.router.navigate(['/']);
+  }
+
+  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+    if (this.isLogin()) return true;
+    return this.router.parseUrl('/error');
   }
 }

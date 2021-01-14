@@ -1,6 +1,6 @@
 <mat-toolbar color="primary">
   <mat-toolbar-row>
-    <span>Reservation</span>
+    <span>New Reservation</span>
   </mat-toolbar-row>
 </mat-toolbar>
 
@@ -41,16 +41,19 @@
   </form>
 
   <mat-card>
-    {{ successMessage }}
-    {{ failMessage }}
-
-    <button
-      mat-raised-button
-      color="primary"
-      *ngIf="successMessage"
-      (click)="continue()"
-    >
-      Continue
-    </button>
+    <div class="container">
+      {{ successMessage }}
+      {{ failMessage }}
+    </div>
+    <div class="button">
+      <button
+        mat-raised-button
+        color="primary"
+        *ngIf="successMessage"
+        (click)="continue()"
+      >
+        Continue
+      </button>
+    </div>
   </mat-card>
 </div>

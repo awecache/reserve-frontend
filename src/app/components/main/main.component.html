@@ -1,0 +1,44 @@
+<h1>
+  <b> Welcome to Reserve4Me </b>
+</h1>
+
+<mat-card class="card">
+  <div>
+    <button
+      class="button"
+      mat-raised-button
+      color="warn"
+      (click)="makeReservation()"
+    >
+      Make a Reservation
+    </button>
+  </div>
+  <div>
+    <button
+      class="button"
+      mat-raised-button
+      color="green"
+      (click)="goToManager()"
+    >
+      Login in as Restaurant Manager
+    </button>
+  </div>
+
+  <div class="cancellation">
+    <p>
+      To cancel your reservation, enter your booking reference number and search
+      for your reservation.
+    </p>
+    <form [formGroup]="form" (ngSubmit)="search()">
+      Booking Reference:
+      <mat-form-field class="field">
+        <mat-label></mat-label>
+        <input matInput placeholder="1010101010110" formControlName="bookRef" />
+      </mat-form-field>
+
+      <button class="search-button" mat-flat-button color="primary">
+        Search
+      </button>
+    </form>
+  </div>
+</mat-card>
