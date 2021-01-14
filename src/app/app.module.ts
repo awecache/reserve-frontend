@@ -34,6 +34,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ConfirmationComponent } from './components/confirmation/confirmation.component';
 import { LoginComponent } from './components/login/login.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -41,6 +42,7 @@ import { LoginComponent } from './components/login/login.component';
     ReservationComponent,
     ConfirmationComponent,
     LoginComponent,
+    DashboardComponent,
   ],
   imports: [
     BrowserModule,

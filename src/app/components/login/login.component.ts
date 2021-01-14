@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { SocialAuthService, SocialUser } from 'angularx-social-login';
@@ -6,6 +6,7 @@ import {
   FacebookLoginProvider,
   GoogleLoginProvider,
 } from 'angularx-social-login';
+import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -13,11 +14,13 @@ import { AuthService } from 'src/app/services/auth.service';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, OnDestroy {
   username?: string;
   password?: string;
   user?: SocialUser;
   hide = true;
+  loginSub$?: Subscription;
+  socialLoginSub$?: Subscription;
 
   form: FormGroup = this.fb.group({
     username: ['', [Validators.required]],
@@ -28,12 +31,16 @@ export class LoginComponent implements OnInit {
     return this.form.controls;
   }
 
-  // constructor() {}
   constructor(
     private fb: FormBuilder,
     private socialAuthService: SocialAuthService,
     private authService: AuthService
   ) {}
+
+  ngOnDestroy(): void {
+    this.loginSub$?.unsubscribe();
+    this.socialLoginSub$?.unsubscribe();
+  }
 
   ngOnInit(): void {
     this.socialAuthService.authState.subscribe((user) => {
@@ -41,8 +48,14 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  signInWithGoogle(): void {
-    this.socialAuthService.signIn(GoogleLoginProvider.PROVIDER_ID);
+  async signInWithGoogle(): Promise<any> {
+    const user = await this.socialAuthService.signIn(
+      GoogleLoginProvider.PROVIDER_ID
+    );
+
+    this.socialLoginSub$ = this.authService.socialLogin(user.email);
+
+    this.form.reset();
   }
 
   // signInWithFB(): void {
@@ -58,9 +71,7 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    console.log('login!', this.form.value);
-    this.authService.login(this.form.value).subscribe((res) => {
-      console.log('results>>', res);
-    });
+    this.loginSub$ = this.authService.login(this.form.value);
+    this.form.reset();
   }
 }
