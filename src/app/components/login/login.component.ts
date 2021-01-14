@@ -1,5 +1,6 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 import { SocialAuthService, SocialUser } from 'angularx-social-login';
 import {
@@ -14,7 +15,7 @@ import { AuthService } from 'src/app/services/auth.service';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
 })
-export class LoginComponent implements OnInit, OnDestroy {
+export class LoginComponent implements OnInit {
   username?: string;
   password?: string;
   user?: SocialUser;
@@ -34,13 +35,9 @@ export class LoginComponent implements OnInit, OnDestroy {
   constructor(
     private fb: FormBuilder,
     private socialAuthService: SocialAuthService,
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router
   ) {}
-
-  ngOnDestroy(): void {
-    this.loginSub$?.unsubscribe();
-    this.socialLoginSub$?.unsubscribe();
-  }
 
   ngOnInit(): void {
     this.socialAuthService.authState.subscribe((user) => {
@@ -48,14 +45,15 @@ export class LoginComponent implements OnInit, OnDestroy {
     });
   }
 
-  async signInWithGoogle(): Promise<any> {
+  async signInWithGoogle() {
     const user = await this.socialAuthService.signIn(
       GoogleLoginProvider.PROVIDER_ID
     );
 
-    this.socialLoginSub$ = this.authService.socialLogin(user.email);
+    this.authService.socialLogin(user.email);
 
     this.form.reset();
+    this.router.navigate(['manager/dashboard']);
   }
 
   // signInWithFB(): void {
@@ -70,8 +68,9 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.socialAuthService.signOut();
   }
 
-  login() {
-    this.loginSub$ = this.authService.login(this.form.value);
+  async login() {
+    await this.authService.login(this.form.value);
     this.form.reset();
+    this.router.navigate(['manager/dashboard']);
   }
 }

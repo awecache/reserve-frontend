@@ -1,1 +1,49 @@
-<p>dashboard works!</p>
+<form [formGroup]="form" (ngSubmit)="search()">
+  <mat-form-field class="field">
+    <mat-label>Date</mat-label>
+    <input matInput [matDatepicker]="picker" formControlName="date" />
+    <mat-datepicker-toggle matSuffix [for]="picker"> </mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+  <mat-checkbox class="field" formControlName="lunch">Lunch</mat-checkbox>
+  <mat-checkbox class="field" formControlName="dinner">Dinner</mat-checkbox>
+  <button mat-flat-button>Search</button>
+</form>
+
+<table mat-table [dataSource]="reservations" class="mat-elevation-z8">
+  <!--- Note that these columns can be defined in any order.
+          The actual rendered columns are set as a property on the row definition" -->
+
+  <!-- Time Column -->
+  <ng-container matColumnDef="time">
+    <th mat-header-cell *matHeaderCellDef>Time</th>
+    <td mat-cell *matCellDef="let element">{{ element.time }}</td>
+  </ng-container>
+
+  <!-- Pax Column -->
+  <ng-container matColumnDef="pax">
+    <th mat-header-cell *matHeaderCellDef>Pax</th>
+    <td mat-cell *matCellDef="let element">{{ element.pax }}</td>
+  </ng-container>
+
+  <!-- Contact Column -->
+  <ng-container matColumnDef="contact">
+    <th mat-header-cell *matHeaderCellDef>Contact No.</th>
+    <td mat-cell *matCellDef="let element">{{ element.contact }}</td>
+  </ng-container>
+
+  <!-- Name Column -->
+  <ng-container matColumnDef="name">
+    <th mat-header-cell *matHeaderCellDef>Name</th>
+    <td mat-cell *matCellDef="let element">{{ element.name }}</td>
+  </ng-container>
+
+  <!-- Table Column -->
+  <ng-container matColumnDef="table">
+    <th mat-header-cell *matHeaderCellDef>Table</th>
+    <td mat-cell *matCellDef="let element">{{ element.table }}</td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+</table>

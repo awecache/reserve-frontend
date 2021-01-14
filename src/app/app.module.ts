@@ -14,8 +14,9 @@ import {
 } from 'angularx-social-login';
 import {
   GoogleLoginProvider,
-  FacebookLoginProvider,
+  // FacebookLoginProvider,
 } from 'angularx-social-login';
+import { environment } from '../environments/environment';
 
 import { MaterialModule } from './material.module';
 
@@ -35,6 +36,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ConfirmationComponent } from './components/confirmation/confirmation.component';
 import { LoginComponent } from './components/login/login.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { SuccessComponent } from './components/success/success.component';
+import { ChangeReservationComponent } from './components/change-reservation/change-reservation.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -43,6 +46,8 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
     ConfirmationComponent,
     LoginComponent,
     DashboardComponent,
+    SuccessComponent,
+    ChangeReservationComponent,
   ],
   imports: [
     BrowserModule,
@@ -72,7 +77,7 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
             id: GoogleLoginProvider.PROVIDER_ID,
             provider: new GoogleLoginProvider(
               // '624796833023-clhjgupm0pu6vgga7k5i5bsfp6qp6egh.apps.googleusercontent.com'
-              '1094217161012-kg2f0kd85mkbqql2htd3ilni02evmvh7.apps.googleusercontent.com'
+              environment.googleClientId
             ),
           },
           // {

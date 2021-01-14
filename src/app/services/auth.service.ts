@@ -11,44 +11,42 @@ export class AuthService {
 
   constructor(private http: HttpClient) {}
 
-  login(cred: Credentials): Subscription {
+  async login(cred: Credentials): Promise<void> {
     console.log('credentials:', cred);
-    return this.http.post<AuthToken>('/auth/login', cred).subscribe(
-      (res) => {
-        console.log('login successful: ', res.message);
+    try {
+      const res = await this.http
+        .post<AuthToken>('/auth/login', cred)
+        .toPromise();
 
-        this._token = res.token;
-      },
-      (error) => {
-        if (error.status == 401) {
-          // handle error
-          console.log('Unauthorized error: ', error);
-          return;
-        }
-        console.info('error: ', error);
+      console.log('login successful: ', res.message);
+      console.log('token from authsrv:', res.token);
+      this._token = res.token;
+    } catch (error) {
+      if (error.status == 401) {
+        console.log('Unauthorized error: ', error);
       }
-    );
+      console.info('error: ', error);
+    }
   }
 
-  socialLogin(email: string) {
+  async socialLogin(email: string): Promise<void> {
     console.log('email: ', email);
-    return this.http
-      .post<AuthToken>('/auth/login/social', { email })
-      .subscribe(
-        (res) => {
-          console.log('social login successful: ', res.message);
+    try {
+      const res = await this.http
+        .post<AuthToken>('/auth/login/social', { email })
+        .toPromise();
 
-          this._token = res.token;
-        },
-        (error) => {
-          if (error.status == 401) {
-            // handle error
-            console.log('Unauthorized error: ', error);
-            return;
-          }
-          console.info('error: ', error);
-        }
-      );
+      console.log('social login successful: ', res.message);
+
+      this._token = res.token;
+    } catch (error) {
+      if (error.status == 401) {
+        // handle error
+        console.log('Unauthorized error: ', error);
+        return;
+      }
+      console.info('error: ', error);
+    }
   }
 
   isLogin() {
