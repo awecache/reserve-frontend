@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ReservationService } from 'src/app/services/reservation.service';
-import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-success',
@@ -11,8 +10,7 @@ import { Location } from '@angular/common';
 export class SuccessComponent implements OnInit {
   constructor(
     private reservationSrv: ReservationService,
-    private router: Router,
-    private location: Location
+    private router: Router
   ) {}
   name?: string;
   contact?: string;
@@ -29,7 +27,6 @@ export class SuccessComponent implements OnInit {
       reservedDate,
       reservedTime,
       reservedPax,
-      bookRef,
     } = this.reservationSrv;
 
     this.name = customerName;
@@ -42,9 +39,5 @@ export class SuccessComponent implements OnInit {
 
   goHome() {
     this.router.navigate(['/']);
-  }
-
-  goBack() {
-    this.location.back();
   }
 }

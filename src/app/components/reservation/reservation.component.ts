@@ -43,7 +43,7 @@ export class ReservationComponent implements OnInit, OnDestroy {
           // );
           return;
         }
-        this.goBack();
+        this.router.navigate(['/']);
       });
   }
 
