@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { ReservationService } from 'src/app/services/reservation.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-success',
@@ -7,7 +9,11 @@ import { ReservationService } from 'src/app/services/reservation.service';
   styleUrls: ['./success.component.scss'],
 })
 export class SuccessComponent implements OnInit {
-  constructor(private reservationSrv: ReservationService) {}
+  constructor(
+    private reservationSrv: ReservationService,
+    private router: Router,
+    private location: Location
+  ) {}
   name?: string;
   contact?: string;
   email?: string;
@@ -32,5 +38,13 @@ export class SuccessComponent implements OnInit {
     this.date = reservedDate;
     this.time = reservedTime;
     this.pax = reservedPax;
+  }
+
+  goHome() {
+    this.router.navigate(['/']);
+  }
+
+  goBack() {
+    this.location.back();
   }
 }
